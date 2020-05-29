@@ -39,6 +39,7 @@
 /* Non-terminal type */
 %type <sVal> program var_decl scalar_decl var_type init_list init_unit
 %type <sVal> expr id_arr_access access_list func_invoc param_list literal
+%type <sVal> array_decl init_list_arr init_unit_arr id_arr_decl arr_decl_list arr_content expr_list arr_content_list
 
 
 /* Precedence (low to high) & Association */
@@ -78,9 +79,8 @@ program: program var_decl {
 	|  {} ;
 
 
-var_decl: scalar_decl {
-
-	};
+var_decl: scalar_decl
+	| array_decl ;
 
 /**********************************************/
 
@@ -398,7 +398,90 @@ literal: NUM_INT {
 
 /**********************************************/
 
+array_decl: var_type init_list_arr ';' {
 
+		printf("<array_decl>%s%s;</array_decl>", $1, $2);
+
+	};
+
+init_list_arr: init_unit_arr
+
+	| init_list_arr ',' init_unit_arr {
+
+		sprintf(temp, "%s,%s", $1, $3);
+		strcpy($$, temp);
+
+	};
+
+init_unit_arr: id_arr_decl
+
+	| id_arr_decl '=' arr_content {
+
+		sprintf(temp, "%s=%s", $1, $3);
+                strcpy($$, temp);
+
+	};
+
+id_arr_decl: ID arr_decl_list {
+
+		strcpy($$, $1);
+		strcat($$, $2);
+
+	};
+
+arr_decl_list: arr_decl_list '[' NUM_INT ']' {
+
+		sprintf(temp, "%s[%d]", $1, $3);
+		strcpy($$, temp);
+
+	}
+
+	| '[' NUM_INT ']' {
+
+                sprintf(temp, "[%d]", $2);
+                strcpy($$, temp);
+
+	};
+
+arr_content: '{' expr_list '}' {
+
+                sprintf(temp, "{%s}", $2);
+                strcpy($$, temp);
+
+	}
+
+	| '{' arr_content_list '}' {
+
+                sprintf(temp, "{%s}", $2);
+                strcpy($$, temp);
+
+	};
+
+expr_list: expr {
+
+		sprintf(temp, "<expr>%s</expr>", $1);
+		strcpy($$, temp);
+
+	}
+
+	| expr_list ',' expr {
+
+		sprintf(temp, "%s,<expr>%s</expr>", $1, $3);
+		strcpy($$, temp);
+
+	};
+
+arr_content_list: arr_content
+
+	| arr_content_list ',' arr_content {
+
+		sprintf(temp, "%s,%s", $1, $3);
+		strcpy($$, temp);
+
+	};
+
+
+/**********************************************/
 
 %%
 
