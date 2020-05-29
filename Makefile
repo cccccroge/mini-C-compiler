@@ -1,12 +1,7 @@
-all: scanner
+all:
+	flex scanner.l
+	byacc -d -v parser.y
+	gcc -o parser lex.yy.c y.tab.c -lfl
 
 clean:
-	@$(RM) lex.yy.c scanner
-
-
-
-lex.yy.c:
-	flex ./scanner.l
-
-scanner: lex.yy.c
-	gcc $^ -lfl -o scanner
+	rm -f parser lex.yy.c y.output y.tab.c y.tab.h

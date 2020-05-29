@@ -1,17 +1,9 @@
 %{
-   #include <stdio.h>
+   #include "y.tab.h"
+   #include <string.h>
+   #include <stdlib.h>
 
-   /* helper variable */
-   int line_count = 0;
-   char line_content[1000];
-
-   int source_enable = 1;
-   int token_enable = 1;
-
-   /* function declaration */
-   void printTokenType(const char t);
-   void printLine();
-   void append_line_content();
+   int line_count;
 %}
 
 
@@ -49,119 +41,264 @@ CHAR_3 {TAB}
 %x CHAR_START
 %x LONG_COMMENT_START
 
+
 %%
 
-{KEYWORD} { printTokenType('k'); append_line_content(); }
+void {
 
-(_|{CHAR})(_|{CHAR}|{DIGIT})* { printTokenType('i'); append_line_content(); }
+	strcpy(yylval.sVal, yytext);
+	return VOID;	
 
-{OPERATOR} { printTokenType('o'); append_line_content(); }
+}
 
-{PUNC} { printTokenType('p'); append_line_content(); }
+const {
 
-[\+-]?{DIGIT}+ { printTokenType('n'); append_line_content(); }
+	strcpy(yylval.sVal, yytext);
+	return CONST;
 
-[\+-]?({FLOAT_1}|{FLOAT_2}|{FLOAT_3}) { printTokenType('d'); append_line_content(); }
+}
+
+for {
+
+	strcpy(yylval.sVal, yytext);
+        return FOR;
+
+}
+
+do {
+
+	strcpy(yylval.sVal, yytext);
+        return DO;
+
+}
+
+while {
+
+	strcpy(yylval.sVal, yytext);
+        return WHILE;
+
+}
+
+break {
+
+	strcpy(yylval.sVal, yytext);
+        return BREAK;
+
+}
+
+continue {
+
+	strcpy(yylval.sVal, yytext);
+        return CONTINUE;
+
+}
+
+if {
+
+	strcpy(yylval.sVal, yytext);
+        return IF;
+
+}
+
+else {
+
+	strcpy(yylval.sVal, yytext);
+        return ELSE;
+
+}
+
+return {
+
+	strcpy(yylval.sVal, yytext);
+        return RETURN;
+
+}
+
+switch {
+
+	strcpy(yylval.sVal, yytext);
+        return SWITCH;
+
+}
+
+case {
+
+	strcpy(yylval.sVal, yytext);
+        return CASE;
+
+}
+
+default {
+
+	strcpy(yylval.sVal, yytext);
+        return CASE;
+
+}
+
+int {
+
+	strcpy(yylval.sVal, yytext);
+        return INT;
+
+}
+
+float {
+
+	strcpy(yylval.sVal, yytext);
+        return FLOAT;
+
+}
+
+char {
+
+	strcpy(yylval.sVal, yytext);
+        return CHAR;
+
+}
+
+double {
+
+	strcpy(yylval.sVal, yytext);
+        return DOUBLE;
+
+}
+
+(\+|-|\*|\/|%|<|>|=|!|&|\||\(|\)|\[|\]|\{|\}|:|;|,) {
+
+	strcpy(yylval.sVal, yytext);
+	return yylval.sVal[0];
+
+}
+
+"++" {
+
+	strcpy(yylval.sVal, yytext);
+	return INCRE;
+
+}
+
+"--" {
+
+	strcpy(yylval.sVal, yytext);
+        return DECRE;
+
+}
+
+"<=" {
+
+	strcpy(yylval.sVal, yytext);
+        return LESS_EQ;
+
+}
+
+">=" {
+
+	strcpy(yylval.sVal, yytext);
+        return GREAT_EQ;
+
+}
+
+"==" {
+
+        strcpy(yylval.sVal, yytext);
+        return EQUAL;
+
+}
+
+"!=" {
+
+	strcpy(yylval.sVal, yytext);
+        return NOT_EQ;
+
+}
+
+"&&" {
+
+	strcpy(yylval.sVal, yytext);
+        return LOG_AND;
+
+}
+
+"||" {
+
+	strcpy(yylval.sVal, yytext);
+        return LOG_OR;
+
+}
+
+(_|{CHAR})(_|{CHAR}|{DIGIT})* {
+
+
+        strcpy(yylval.sVal, yytext);	
+	return ID;
+
+}
+
+{DIGIT}+ {
+
+	yylval.iVal = atoi(yytext);
+	return NUM_INT;
+
+}
+
+({FLOAT_1}|{FLOAT_2}|{FLOAT_3}) {
+
+	yylval.dVal = (double) atof(yytext);
+	return NUM_FLOATING;
+
+}
 
 \" { BEGIN STRING_START; yymore(); }
-<STRING_START>({PRINTABLE_EXCEPT_QUOT_D}|{ESC_QUOT_D}|{TAB})*(\") { printTokenType('s');
-								    append_line_content();
-			    			 	      	    BEGIN 0; }
+<STRING_START>({PRINTABLE_EXCEPT_QUOT_D}|{ESC_QUOT_D}|{TAB})*(\") {
+
+	BEGIN 0;
+
+	strcpy(yylval.sVal, yytext);
+	return STRING;
+
+}
 
 \' { BEGIN CHAR_START; yymore(); }
-<CHAR_START>({CHAR_1}|{CHAR_2}|{CHAR_3})(\') { printTokenType('c'); append_line_content();
-				      	       BEGIN 0; }
+<CHAR_START>({CHAR_1}|{CHAR_2}|{CHAR_3})(\') {
 
-\/\/(.)* { append_line_content(); }
+	BEGIN 0;
 
-\/\* { BEGIN LONG_COMMENT_START; yymore(); }
-<LONG_COMMENT_START>({PRINTABLE_EXCEPT_STAR}|{TAB})* { append_line_content(); }
-<LONG_COMMENT_START>{STAR_NOT_SLASH} { append_line_content(); }
-<LONG_COMMENT_START>(\*\/) { append_line_content(); BEGIN 0; }
-<LONG_COMMENT_START>{NEXT_LINE} { line_count += 1;
-				  printLine();
-				  line_content[0] = '\0'; }
+	strcpy(yylval.sVal, yytext);
+	return CHARACTER;	
 
-#{SPACES}pragma{SPACES}source{SPACES}on { source_enable = 1; }
-#{SPACES}pragma{SPACES}source{SPACES}off { source_enable = 0; }
-#{SPACES}pragma{SPACES}token{SPACES}on { token_enable = 1; }
-#{SPACES}pragma{SPACES}token{SPACES}off { token_enable = 0; }
+}
 
 
-({SPACE}|{TAB})* { append_line_content(); }
-{NEXT_LINE} { line_count += 1; printLine(); line_content[0] = '\0'; }
+\/\/(.)* {
+
+	// ignore: single line comment
+
+}
+
+
+\/\* { BEGIN LONG_COMMENT_START;  }
+<LONG_COMMENT_START>({PRINTABLE_EXCEPT_STAR}|{TAB})* {  }
+<LONG_COMMENT_START>{STAR_NOT_SLASH} {  }
+<LONG_COMMENT_START>(\*\/) {  
+
+	// ingore: multiple line comment
+	BEGIN 0;
+
+}
+<LONG_COMMENT_START>{NEXT_LINE} { }
+
+
+({SPACE}|{TAB})* {
+
+	// ignore: space, tab (not inside literals)
+}
+
+
+{NEXT_LINE} {
+
+	line_count += 1;
+
+}
 
 %%
 
-
-int main(int argc, char* argv[])
-{
-  line_content[0] = '\0';
-
-  // read input from file or command line
-  if (argc > 1) {
-    yyin = fopen(argv[1], "r");
-  } 
-  else {
-    yyin = stdin;
-  }
-
-  // parsing
-  yylex();
-  
-  return 0;
-}
-
-void printTokenType(const char t)
-{
-  if (!token_enable)
-    return;
-
-  printf("#token ");
-
-  switch(t)
-  {
-    case 'k':
-      printf("key");
-      break;
-    case 'i':
-      printf("id");
-      break;
-    case 'o':
-      printf("op");
-      break;
-    case 'p':
-      printf("punc");
-      break;
-    case 'n':
-      printf("integer");
-      break;
-    case 'd':
-      printf("double");
-      break;
-    case 'c':
-      printf("char");
-      break;
-    case 's':
-      printf("string");
-      break;
-
-    default:
-      printf("{error}");
-  };
-
-  printf(":%s\n", yytext);
-}
-
-void printLine()
-{
-  if (!source_enable)
-    return;
-
-  printf("%d:%s\n", line_count, line_content);
-}
-
-void append_line_content()
-{
-  strcat(line_content, yytext);
-}
