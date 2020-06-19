@@ -1,9 +1,9 @@
 int main()
 {
-	if (0) {
+	char a = '\n';
+	char b = '\t';
+	char c = '\\';
+	char d = '\'';
 
-		int a;
-
-	}
-
+	return;
 }

@@ -37,6 +37,7 @@
 
 
 /* Non-terminal type */
+%type <sVal> program_plum
 %type <sVal> program var_decl scalar_decl const_decl var_type init_list init_unit
 %type <sVal> expr id_arr_access access_list func_invoc argument_list literal
 %type <sVal> array_decl init_list_arr init_unit_arr id_arr_decl arr_decl_list arr_content expr_list arr_content_list
@@ -423,12 +424,23 @@ literal: NUM_INT {
 
 	| CHARACTER {
 
-		if (strcmp($1, "\\\\") == 0)
+		if (strcmp($1, "'\\\\'") == 0) {
+		
 			sprintf(temp, "%s", "\\");
-		else if (strcmp($1, "\\'") == 0)
-			sprintf(temp, "%s", "'");
+			strcpy($$, temp);
+		}
 
-		strcpy($$, temp);
+		else if (strcmp($1, "'\\''") == 0) {
+
+			sprintf(temp, "%s", "'");
+			strcpy($$, temp);
+		}
+
+		else if (strcmp($1, "'\\n'") == 0)
+			strcpy($$, "\n");
+
+		else if (strcmp($1, "'\\t'") == 0)
+			strcpy($$, "\t");
 
 	}
 

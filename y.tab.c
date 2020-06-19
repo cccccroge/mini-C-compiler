@@ -701,7 +701,7 @@ typedef struct {
 } YYSTACKDATA;
 /* variables for the parser stack */
 static YYSTACKDATA yystack;
-#line 809 "parser.y"
+#line 821 "parser.y"
 
 
 int main(void)
@@ -921,7 +921,7 @@ yyreduce:
     switch (yyn)
     {
 case 1:
-#line 71 "parser.y"
+#line 72 "parser.y"
 	{
 
 		printf("%s", yystack.l_mark[0].sVal);
@@ -929,7 +929,7 @@ case 1:
 	}
 break;
 case 2:
-#line 77 "parser.y"
+#line 78 "parser.y"
 	{
 
 		sprintf(temp, "%s%s", yystack.l_mark[-1].sVal, yystack.l_mark[0].sVal);
@@ -938,7 +938,7 @@ case 2:
 	}
 break;
 case 3:
-#line 84 "parser.y"
+#line 85 "parser.y"
 	{
 
 		sprintf(temp, "%s<func_decl>%s</func_decl>", yystack.l_mark[-1].sVal, yystack.l_mark[0].sVal);
@@ -947,7 +947,7 @@ case 3:
 	}
 break;
 case 4:
-#line 91 "parser.y"
+#line 92 "parser.y"
 	{
 
 		sprintf(temp, "%s<func_def>%s</func_def>", yystack.l_mark[-1].sVal, yystack.l_mark[0].sVal);
@@ -956,11 +956,11 @@ case 4:
 	}
 break;
 case 5:
-#line 98 "parser.y"
+#line 99 "parser.y"
 	{}
 break;
 case 6:
-#line 101 "parser.y"
+#line 102 "parser.y"
 	{
 
 		sprintf(temp, "<scalar_decl>%s</scalar_decl>", yystack.l_mark[0].sVal);
@@ -969,7 +969,7 @@ case 6:
 	}
 break;
 case 7:
-#line 108 "parser.y"
+#line 109 "parser.y"
 	{
 
 		sprintf(temp, "<array_decl>%s</array_decl>", yystack.l_mark[0].sVal);
@@ -978,7 +978,7 @@ case 7:
 	}
 break;
 case 8:
-#line 115 "parser.y"
+#line 116 "parser.y"
 	{
 
 		sprintf(temp, "<const_decl>%s</const_decl>", yystack.l_mark[0].sVal);
@@ -987,7 +987,7 @@ case 8:
 	}
 break;
 case 9:
-#line 124 "parser.y"
+#line 125 "parser.y"
 	{
 
 		sprintf(temp, "%s%s;", yystack.l_mark[-2].sVal, yystack.l_mark[-1].sVal);
@@ -996,7 +996,7 @@ case 9:
 	}
 break;
 case 15:
-#line 135 "parser.y"
+#line 136 "parser.y"
 	{
 
 		strcpy(yyval.sVal, yystack.l_mark[-2].sVal);
@@ -1006,7 +1006,7 @@ case 15:
 	}
 break;
 case 17:
-#line 145 "parser.y"
+#line 146 "parser.y"
 	{
 		
 		sprintf(temp, "%s=<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1015,7 +1015,7 @@ case 17:
 	}
 break;
 case 18:
-#line 154 "parser.y"
+#line 155 "parser.y"
 	{
 
 		sprintf(temp, "<expr>%s</expr>+<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1024,7 +1024,7 @@ case 18:
 	}
 break;
 case 19:
-#line 161 "parser.y"
+#line 162 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>-<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1033,7 +1033,7 @@ case 19:
 	}
 break;
 case 20:
-#line 168 "parser.y"
+#line 169 "parser.y"
 	{
 
 		sprintf(temp, "<expr>%s</expr>*<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1042,7 +1042,7 @@ case 20:
 	}
 break;
 case 21:
-#line 175 "parser.y"
+#line 176 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>/<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1051,7 +1051,7 @@ case 21:
         }
 break;
 case 22:
-#line 182 "parser.y"
+#line 183 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>%%<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1060,7 +1060,7 @@ case 22:
         }
 break;
 case 23:
-#line 189 "parser.y"
+#line 190 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr><<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1069,7 +1069,7 @@ case 23:
         }
 break;
 case 24:
-#line 196 "parser.y"
+#line 197 "parser.y"
 	{
 
 		sprintf(temp, "<expr>%s</expr><=<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1078,7 +1078,7 @@ case 24:
         }
 break;
 case 25:
-#line 203 "parser.y"
+#line 204 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>><expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1087,7 +1087,7 @@ case 25:
         }
 break;
 case 26:
-#line 210 "parser.y"
+#line 211 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>>=<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1096,7 +1096,7 @@ case 26:
         }
 break;
 case 27:
-#line 217 "parser.y"
+#line 218 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>==<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1105,7 +1105,7 @@ case 27:
         }
 break;
 case 28:
-#line 224 "parser.y"
+#line 225 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>!=<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1114,7 +1114,7 @@ case 28:
         }
 break;
 case 29:
-#line 231 "parser.y"
+#line 232 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>&&<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1122,7 +1122,7 @@ case 29:
         }
 break;
 case 30:
-#line 237 "parser.y"
+#line 238 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>||<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1131,7 +1131,7 @@ case 30:
         }
 break;
 case 31:
-#line 244 "parser.y"
+#line 245 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>&<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1140,7 +1140,7 @@ case 31:
         }
 break;
 case 32:
-#line 251 "parser.y"
+#line 252 "parser.y"
 	{
 
                 sprintf(temp, "<expr>%s</expr>|<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1149,7 +1149,7 @@ case 32:
         }
 break;
 case 33:
-#line 258 "parser.y"
+#line 259 "parser.y"
 	{
 
 		sprintf(temp, "!<expr>%s</expr>", yystack.l_mark[0].sVal);
@@ -1158,7 +1158,7 @@ case 33:
         }
 break;
 case 34:
-#line 265 "parser.y"
+#line 266 "parser.y"
 	{
                 
                 sprintf(temp, "(<expr>%s</expr>)", yystack.l_mark[-1].sVal);
@@ -1167,7 +1167,7 @@ case 34:
 	}
 break;
 case 35:
-#line 272 "parser.y"
+#line 273 "parser.y"
 	{
 
                 sprintf(temp, "+<expr>%s</expr>", yystack.l_mark[0].sVal);
@@ -1176,7 +1176,7 @@ case 35:
         }
 break;
 case 36:
-#line 279 "parser.y"
+#line 280 "parser.y"
 	{
 
                 sprintf(temp, "-<expr>%s</expr>", yystack.l_mark[0].sVal);
@@ -1185,7 +1185,7 @@ case 36:
         }
 break;
 case 37:
-#line 286 "parser.y"
+#line 287 "parser.y"
 	{
 
 		strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1194,7 +1194,7 @@ case 37:
 	}
 break;
 case 38:
-#line 293 "parser.y"
+#line 294 "parser.y"
 	{
 
                 strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1203,7 +1203,7 @@ case 38:
 	}
 break;
 case 39:
-#line 300 "parser.y"
+#line 301 "parser.y"
 	{
 
                 strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1212,7 +1212,7 @@ case 39:
 	}
 break;
 case 40:
-#line 307 "parser.y"
+#line 308 "parser.y"
 	{
 
                 strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1221,7 +1221,7 @@ case 40:
 	}
 break;
 case 41:
-#line 314 "parser.y"
+#line 315 "parser.y"
 	{
 
                 strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1230,7 +1230,7 @@ case 41:
         }
 break;
 case 42:
-#line 321 "parser.y"
+#line 322 "parser.y"
 	{
 
                 strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1239,7 +1239,7 @@ case 42:
         }
 break;
 case 43:
-#line 328 "parser.y"
+#line 329 "parser.y"
 	{
 
                 strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1248,7 +1248,7 @@ case 43:
         }
 break;
 case 44:
-#line 335 "parser.y"
+#line 336 "parser.y"
 	{
 
                 strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1257,7 +1257,7 @@ case 44:
         }
 break;
 case 45:
-#line 342 "parser.y"
+#line 343 "parser.y"
 	{
 
                 sprintf(temp, "%s=<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1266,7 +1266,7 @@ case 45:
 	}
 break;
 case 46:
-#line 349 "parser.y"
+#line 350 "parser.y"
 	{
 
                 sprintf(temp, "%s=<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1275,7 +1275,7 @@ case 46:
 	}
 break;
 case 51:
-#line 364 "parser.y"
+#line 365 "parser.y"
 	{
 
                 strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1284,7 +1284,7 @@ case 51:
 	}
 break;
 case 52:
-#line 371 "parser.y"
+#line 372 "parser.y"
 	{
 
 		sprintf(temp, "%s[<expr>%s</expr>]", yystack.l_mark[-3].sVal, yystack.l_mark[-1].sVal);
@@ -1293,7 +1293,7 @@ case 52:
 	}
 break;
 case 53:
-#line 378 "parser.y"
+#line 379 "parser.y"
 	{
 
 		sprintf(temp, "[<expr>%s</expr>]", yystack.l_mark[-1].sVal);
@@ -1302,7 +1302,7 @@ case 53:
 	}
 break;
 case 54:
-#line 385 "parser.y"
+#line 386 "parser.y"
 	{
 
                 strcpy(yyval.sVal, yystack.l_mark[-3].sVal);
@@ -1313,7 +1313,7 @@ case 54:
 	}
 break;
 case 56:
-#line 396 "parser.y"
+#line 397 "parser.y"
 	{
 
 		sprintf(temp, "%s,<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1322,7 +1322,7 @@ case 56:
 	}
 break;
 case 57:
-#line 403 "parser.y"
+#line 404 "parser.y"
 	{
 
 		sprintf(temp, "<expr>%s</expr>", yystack.l_mark[0].sVal);
@@ -1331,7 +1331,7 @@ case 57:
 	}
 break;
 case 58:
-#line 410 "parser.y"
+#line 411 "parser.y"
 	{
 
 		sprintf(temp, "%d", yystack.l_mark[0].iVal);
@@ -1340,7 +1340,7 @@ case 58:
 	}
 break;
 case 59:
-#line 417 "parser.y"
+#line 418 "parser.y"
 	{
 
 		sprintf(temp, "%f", yystack.l_mark[0].dVal);
@@ -1349,20 +1349,31 @@ case 59:
 	}
 break;
 case 60:
-#line 424 "parser.y"
+#line 425 "parser.y"
 	{
 
-		if (strcmp(yystack.l_mark[0].sVal, "\\\\") == 0)
+		if (strcmp(yystack.l_mark[0].sVal, "'\\\\'") == 0) {
+		
 			sprintf(temp, "%s", "\\");
-		else if (strcmp(yystack.l_mark[0].sVal, "\\'") == 0)
-			sprintf(temp, "%s", "'");
+			strcpy(yyval.sVal, temp);
+		}
 
-		strcpy(yyval.sVal, temp);
+		else if (strcmp(yystack.l_mark[0].sVal, "'\\''") == 0) {
+
+			sprintf(temp, "%s", "'");
+			strcpy(yyval.sVal, temp);
+		}
+
+		else if (strcmp(yystack.l_mark[0].sVal, "'\\n'") == 0)
+			strcpy(yyval.sVal, "\n");
+
+		else if (strcmp(yystack.l_mark[0].sVal, "'\\t'") == 0)
+			strcpy(yyval.sVal, "\t");
 
 	}
 break;
 case 62:
-#line 439 "parser.y"
+#line 451 "parser.y"
 	{
 
 		sprintf(temp, "%s%s;", yystack.l_mark[-2].sVal, yystack.l_mark[-1].sVal);
@@ -1371,7 +1382,7 @@ case 62:
 	}
 break;
 case 64:
-#line 448 "parser.y"
+#line 460 "parser.y"
 	{
 
 		sprintf(temp, "%s,%s", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1380,7 +1391,7 @@ case 64:
 	}
 break;
 case 66:
-#line 457 "parser.y"
+#line 469 "parser.y"
 	{
 
 		sprintf(temp, "%s=%s", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1389,7 +1400,7 @@ case 66:
 	}
 break;
 case 67:
-#line 464 "parser.y"
+#line 476 "parser.y"
 	{
 
 		strcpy(yyval.sVal, yystack.l_mark[-1].sVal);
@@ -1398,7 +1409,7 @@ case 67:
 	}
 break;
 case 68:
-#line 471 "parser.y"
+#line 483 "parser.y"
 	{
 
 		sprintf(temp, "%s[%d]", yystack.l_mark[-3].sVal, yystack.l_mark[-1].iVal);
@@ -1407,7 +1418,7 @@ case 68:
 	}
 break;
 case 69:
-#line 478 "parser.y"
+#line 490 "parser.y"
 	{
 
                 sprintf(temp, "[%d]", yystack.l_mark[-1].iVal);
@@ -1416,7 +1427,7 @@ case 69:
 	}
 break;
 case 70:
-#line 485 "parser.y"
+#line 497 "parser.y"
 	{
 
                 sprintf(temp, "{%s}", yystack.l_mark[-1].sVal);
@@ -1425,7 +1436,7 @@ case 70:
 	}
 break;
 case 71:
-#line 492 "parser.y"
+#line 504 "parser.y"
 	{
 
                 sprintf(temp, "{%s}", yystack.l_mark[-1].sVal);
@@ -1434,7 +1445,7 @@ case 71:
 	}
 break;
 case 72:
-#line 499 "parser.y"
+#line 511 "parser.y"
 	{
 
 		sprintf(temp, "<expr>%s</expr>", yystack.l_mark[0].sVal);
@@ -1443,7 +1454,7 @@ case 72:
 	}
 break;
 case 73:
-#line 506 "parser.y"
+#line 518 "parser.y"
 	{
 
 		sprintf(temp, "%s,<expr>%s</expr>", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1452,7 +1463,7 @@ case 73:
 	}
 break;
 case 75:
-#line 515 "parser.y"
+#line 527 "parser.y"
 	{
 
 		sprintf(temp, "%s,%s", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1461,7 +1472,7 @@ case 75:
 	}
 break;
 case 76:
-#line 525 "parser.y"
+#line 537 "parser.y"
 	{
 
 		sprintf(temp, "%s%s%s;", yystack.l_mark[-3].sVal, yystack.l_mark[-2].sVal, yystack.l_mark[-1].sVal);
@@ -1470,7 +1481,7 @@ case 76:
 	}
 break;
 case 77:
-#line 533 "parser.y"
+#line 545 "parser.y"
 	{
 
 		sprintf(temp, "%s%s(%s);", yystack.l_mark[-5].sVal, yystack.l_mark[-4].sVal, yystack.l_mark[-2].sVal);
@@ -1479,7 +1490,7 @@ case 77:
 	}
 break;
 case 78:
-#line 540 "parser.y"
+#line 552 "parser.y"
 	{
 
 		sprintf(temp, "%s%s(%s);", yystack.l_mark[-5].sVal, yystack.l_mark[-4].sVal, yystack.l_mark[-2].sVal);
@@ -1488,7 +1499,7 @@ case 78:
 	}
 break;
 case 79:
-#line 547 "parser.y"
+#line 559 "parser.y"
 	{
 
 		sprintf(temp, "%s%s();", yystack.l_mark[-4].sVal, yystack.l_mark[-3].sVal);
@@ -1497,7 +1508,7 @@ case 79:
 	}
 break;
 case 80:
-#line 554 "parser.y"
+#line 566 "parser.y"
 	{
 
 		sprintf(temp, "%s%s();", yystack.l_mark[-4].sVal, yystack.l_mark[-3].sVal);
@@ -1506,7 +1517,7 @@ case 80:
 	}
 break;
 case 81:
-#line 561 "parser.y"
+#line 573 "parser.y"
 	{
 
 		sprintf(temp, "%s,%s", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1515,7 +1526,7 @@ case 81:
 	}
 break;
 case 83:
-#line 570 "parser.y"
+#line 582 "parser.y"
 	{
 	 
 		sprintf(temp, "%s%s", yystack.l_mark[-1].sVal, yystack.l_mark[0].sVal);
@@ -1524,7 +1535,7 @@ case 83:
 	}
 break;
 case 93:
-#line 597 "parser.y"
+#line 609 "parser.y"
 	{
 
 		sprintf(temp, "%s<stmt>%s</stmt>", yystack.l_mark[-1].sVal, yystack.l_mark[0].sVal);
@@ -1533,7 +1544,7 @@ case 93:
 	}
 break;
 case 94:
-#line 604 "parser.y"
+#line 616 "parser.y"
 	{
 
 		sprintf(temp, "<stmt>%s</stmt>", yystack.l_mark[0].sVal);
@@ -1542,7 +1553,7 @@ case 94:
 	}
 break;
 case 95:
-#line 611 "parser.y"
+#line 623 "parser.y"
 	{
 
 		sprintf(temp, "{}");
@@ -1551,7 +1562,7 @@ case 95:
 	}
 break;
 case 96:
-#line 618 "parser.y"
+#line 630 "parser.y"
 	{
 
 		sprintf(temp, "{%s}", yystack.l_mark[-1].sVal);
@@ -1560,7 +1571,7 @@ case 96:
 	}
 break;
 case 97:
-#line 625 "parser.y"
+#line 637 "parser.y"
 	{
 
 		sprintf(temp, "%s%s", yystack.l_mark[-1].sVal, yystack.l_mark[0].sVal);
@@ -1569,7 +1580,7 @@ case 97:
 	}
 break;
 case 99:
-#line 634 "parser.y"
+#line 646 "parser.y"
 	{
 
 		sprintf(temp, "<stmt>%s</stmt>", yystack.l_mark[0].sVal);
@@ -1578,7 +1589,7 @@ case 99:
 	}
 break;
 case 101:
-#line 645 "parser.y"
+#line 657 "parser.y"
 	{
 
 		sprintf(temp, "<expr>%s</expr>;", yystack.l_mark[-1].sVal);
@@ -1587,7 +1598,7 @@ case 101:
 	}
 break;
 case 102:
-#line 652 "parser.y"
+#line 664 "parser.y"
 	{
 
 		sprintf(temp, "%s(<expr>%s</expr>)%s", yystack.l_mark[-4].sVal, yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1596,7 +1607,7 @@ case 102:
 	}
 break;
 case 103:
-#line 659 "parser.y"
+#line 671 "parser.y"
 	{
 
 		sprintf(temp, "%s(<expr>%s</expr>)%s%s%s", yystack.l_mark[-6].sVal, yystack.l_mark[-4].sVal, yystack.l_mark[-2].sVal, yystack.l_mark[-1].sVal, yystack.l_mark[0].sVal);
@@ -1605,7 +1616,7 @@ case 103:
 	}
 break;
 case 104:
-#line 666 "parser.y"
+#line 678 "parser.y"
 	{
 
 		sprintf(temp, "%s(<expr>%s</expr>){%s}", yystack.l_mark[-6].sVal, yystack.l_mark[-4].sVal, yystack.l_mark[-1].sVal);
@@ -1614,7 +1625,7 @@ case 104:
 	}
 break;
 case 105:
-#line 673 "parser.y"
+#line 685 "parser.y"
 	{
 
 		sprintf(temp, "%s(<expr>%s</expr>){}", yystack.l_mark[-5].sVal, yystack.l_mark[-3].sVal);
@@ -1623,7 +1634,7 @@ case 105:
 	}
 break;
 case 106:
-#line 680 "parser.y"
+#line 692 "parser.y"
 	{
 
 		sprintf(temp, "%s%s", yystack.l_mark[-1].sVal, yystack.l_mark[0].sVal);
@@ -1632,7 +1643,7 @@ case 106:
 	}
 break;
 case 108:
-#line 689 "parser.y"
+#line 701 "parser.y"
 	{
 
 		sprintf(temp, "%s%d:%s", yystack.l_mark[-3].sVal, yystack.l_mark[-2].iVal, yystack.l_mark[0].sVal);
@@ -1641,7 +1652,7 @@ case 108:
 	}
 break;
 case 109:
-#line 696 "parser.y"
+#line 708 "parser.y"
 	{
 
 		sprintf(temp, "%s%d:", yystack.l_mark[-2].sVal, yystack.l_mark[-1].iVal);
@@ -1650,7 +1661,7 @@ case 109:
 	}
 break;
 case 110:
-#line 703 "parser.y"
+#line 715 "parser.y"
 	{
 
 		sprintf(temp, "%s:%s", yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1659,7 +1670,7 @@ case 110:
 	}
 break;
 case 111:
-#line 710 "parser.y"
+#line 722 "parser.y"
 	{
 
 		sprintf(temp, "%s:", yystack.l_mark[-1].sVal);
@@ -1668,7 +1679,7 @@ case 111:
 	}
 break;
 case 112:
-#line 717 "parser.y"
+#line 729 "parser.y"
 	{
 
 		sprintf(temp, "%s(<expr>%s</expr>)<stmt>%s</stmt>", yystack.l_mark[-4].sVal, yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1677,7 +1688,7 @@ case 112:
 	}
 break;
 case 113:
-#line 724 "parser.y"
+#line 736 "parser.y"
 	{
 
 		sprintf(temp, "%s<stmt>%s</stmt>%s(<expr>%s</expr>);", yystack.l_mark[-6].sVal, yystack.l_mark[-5].sVal, yystack.l_mark[-4].sVal, yystack.l_mark[-2].sVal);
@@ -1686,7 +1697,7 @@ case 113:
 	}
 break;
 case 114:
-#line 731 "parser.y"
+#line 743 "parser.y"
 	{
 
 		sprintf(temp, "%s(%s;%s;%s)<stmt>%s</stmt>", yystack.l_mark[-8].sVal, yystack.l_mark[-6].sVal, yystack.l_mark[-4].sVal, yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1695,7 +1706,7 @@ case 114:
 	}
 break;
 case 115:
-#line 738 "parser.y"
+#line 750 "parser.y"
 	{
 
 		sprintf(temp, "<expr>%s</expr>", yystack.l_mark[0].sVal);
@@ -1704,11 +1715,11 @@ case 115:
 	}
 break;
 case 116:
-#line 745 "parser.y"
+#line 757 "parser.y"
 	{}
 break;
 case 117:
-#line 747 "parser.y"
+#line 759 "parser.y"
 	{
 
 		sprintf(temp, "%s;", yystack.l_mark[-1].sVal);
@@ -1717,7 +1728,7 @@ case 117:
 	}
 break;
 case 118:
-#line 754 "parser.y"
+#line 766 "parser.y"
 	{
 
 		sprintf(temp, "%s<expr>%s</expr>;", yystack.l_mark[-2].sVal, yystack.l_mark[-1].sVal);
@@ -1726,7 +1737,7 @@ case 118:
 	}
 break;
 case 119:
-#line 761 "parser.y"
+#line 773 "parser.y"
 	{
 
 		sprintf(temp, "%s;", yystack.l_mark[-1].sVal);
@@ -1735,7 +1746,7 @@ case 119:
 	}
 break;
 case 120:
-#line 768 "parser.y"
+#line 780 "parser.y"
 	{
 
 		sprintf(temp, "%s;", yystack.l_mark[-1].sVal);
@@ -1744,7 +1755,7 @@ case 120:
 	}
 break;
 case 121:
-#line 777 "parser.y"
+#line 789 "parser.y"
 	{
 
 		sprintf(temp, "%s%s(%s)%s", yystack.l_mark[-5].sVal, yystack.l_mark[-4].sVal, yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1753,7 +1764,7 @@ case 121:
 	}
 break;
 case 122:
-#line 784 "parser.y"
+#line 796 "parser.y"
 	{
 	
 		sprintf(temp, "%s%s(%s)%s", yystack.l_mark[-5].sVal, yystack.l_mark[-4].sVal, yystack.l_mark[-2].sVal, yystack.l_mark[0].sVal);
@@ -1762,7 +1773,7 @@ case 122:
 	}
 break;
 case 123:
-#line 791 "parser.y"
+#line 803 "parser.y"
 	{
 
 		sprintf(temp, "%s%s()%s", yystack.l_mark[-4].sVal, yystack.l_mark[-3].sVal, yystack.l_mark[0].sVal);
@@ -1771,7 +1782,7 @@ case 123:
 	}
 break;
 case 124:
-#line 798 "parser.y"
+#line 810 "parser.y"
 	{
 
 		sprintf(temp, "%s%s()%s", yystack.l_mark[-4].sVal, yystack.l_mark[-3].sVal, yystack.l_mark[0].sVal);
@@ -1779,7 +1790,7 @@ case 124:
 
 	}
 break;
-#line 1783 "y.tab.c"
+#line 1794 "y.tab.c"
     }
     yystack.s_mark -= yym;
     yystate = *yystack.s_mark;
