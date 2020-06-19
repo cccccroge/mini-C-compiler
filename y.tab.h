@@ -42,7 +42,7 @@ typedef union{
 
 	int iVal;
 	double dVal;
-	char sVal[1000];
+	char sVal[100000];
 
 } YYSTYPE;
 #endif /* !YYSTYPE_IS_DECLARED */

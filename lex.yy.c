@@ -962,7 +962,7 @@ YY_RULE_SETUP
 {
 
 	strcpy(yylval.sVal, yytext);
-        return CASE;
+        return DEFAULT;
 
 }
 	YY_BREAK

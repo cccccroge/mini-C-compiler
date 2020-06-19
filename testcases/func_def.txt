@@ -1,0 +1,19 @@
+void a()
+{
+}
+
+void b(int c, double d, char e)
+{
+  1 + 2;
+}
+
+int f()
+{
+  3 + 4;
+}
+
+char g(float h)
+{
+  5 + 6;
+}
+

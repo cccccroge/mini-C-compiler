@@ -1,0 +1,16 @@
+int a;
+double b, c, d;
+char e = 123;
+float f = 234, g;
+int h, i = 345 + f, j;
+
+double k[1];
+char l[2][3], m[4];
+float n[5][6] = { 9 };
+int o[7][8] = { { 10 + a }, { 11 + b, 15, 16 } }, p[12][13][14];
+
+const int r = 17 + e, s = 18;
+const double u = 20;
+const char v = 21 + r;
+const float x = 23 + r, y = 24;
+

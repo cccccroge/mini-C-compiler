@@ -1,0 +1,9 @@
+void a();
+void b(int c);
+void d(int e, double f);
+void g(char h);
+int i();
+double j(char k);
+float l();
+char m(int n, float o);
+

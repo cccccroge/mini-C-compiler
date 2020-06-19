@@ -131,7 +131,7 @@ case {
 default {
 
 	strcpy(yylval.sVal, yytext);
-        return CASE;
+        return DEFAULT;
 
 }
 
