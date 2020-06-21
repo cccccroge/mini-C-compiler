@@ -3,6 +3,8 @@
    #include <string.h>
    #include <stdlib.h>
 
+   extern "C" int yylex();
+
    int line_count;
 %}
 
@@ -286,6 +288,7 @@ double {
 
 }
 <LONG_COMMENT_START>{NEXT_LINE} { }
+<LONG_COMMENT_START>. { }
 
 
 ({SPACE}|{TAB})* {
@@ -297,6 +300,12 @@ double {
 {NEXT_LINE} {
 
 	line_count += 1;
+
+}
+
+. {
+
+	// ignore: all other characters
 
 }
 

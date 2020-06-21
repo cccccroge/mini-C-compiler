@@ -23,13 +23,13 @@
 #define NOT_EQ 279
 #define LOG_AND 280
 #define LOG_OR 281
-#define ID 282
-#define NUM_INT 283
-#define NUM_FLOATING 284
-#define CHARACTER 285
-#define STRING 286
-#define UPLUS 287
-#define UMINUS 288
+#define UPLUS 282
+#define UMINUS 283
+#define ID 284
+#define NUM_INT 285
+#define NUM_FLOATING 286
+#define CHARACTER 287
+#define STRING 288
 #define SUFFIX_INCRE 289
 #define SUFFIX_DECRE 290
 #ifdef YYSTYPE

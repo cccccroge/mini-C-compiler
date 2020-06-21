@@ -1,7 +1,7 @@
 all:
-	flex scanner.l
-	byacc -d -v parser.y
-	gcc -o parser lex.yy.c y.tab.c -lfl
+	flex -o src/lex.yy.c src/scanner.l
+	byacc -b src/y -d -v src/parser.y
+	g++ -w -o codegen src/symbol.c src/lex.yy.c src/y.tab.c -lfl
 
 clean:
-	rm -f parser lex.yy.c y.output y.tab.c y.tab.h
+	rm -f codegen src/lex.yy.c src/y.output src/y.tab.c src/y.tab.h
