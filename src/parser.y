@@ -19,6 +19,7 @@
    int cur_scope;
    int cur_arg;
    int cur_local;
+   int cur_temp;
 
 %}
 
@@ -187,7 +188,10 @@ init_unit: ID {
                 // save to register
                 std::string reg = "s" + std::to_string(cur_local);
                 cur_local += 1;
-                std::cout << "addi " + reg + ", t0, 0" << std::endl;  // use expr value, stored on t0
+
+		std::cout << "lw t0, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+                std::cout << "addi " + reg + ", t0, 0" << std::endl;
 
                 // modify pre-saved value on stack
                 std::cout << "sw " + reg + ", " + std::to_string(offset) + "(s0)" << std::endl;
@@ -198,36 +202,86 @@ init_unit: ID {
 
 expr: expr '+' expr {
 
-		sprintf(temp, "<expr>%s</expr>+<expr>%s</expr>", $1, $3);
-		strcpy($$, temp);
+		// get temp values from stack
+		std::cout << "lw t1, 0(sp)" << std::endl;
+		std::cout << "addi sp, sp, 4" << std::endl;
+		std::cout << "lw t0, 0(sp)" << std::endl;
+		std::cout << "addi sp, sp, 4" << std::endl;
+
+		// add
+		std::cout << "add t0, t0, t1" << std::endl;
+
+		// push stack as temp value
+		std::cout << "addi sp, sp, -4" << std::endl;
+		std::cout << "sw t0, 0(sp)" << std::endl;
 
 	}
 
 	| expr '-' expr {
 
-                sprintf(temp, "<expr>%s</expr>-<expr>%s</expr>", $1, $3);
-		strcpy($$, temp);
+		// get temp values from stack
+                std::cout << "lw t1, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+                std::cout << "lw t0, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+
+                // subtract
+                std::cout << "sub t0, t0, t1" << std::endl;
+
+                // push stack as temp value
+                std::cout << "addi sp, sp, -4" << std::endl;
+                std::cout << "sw t0, 0(sp)" << std::endl;
 
 	}
 
 	| expr '*' expr {
 
-		sprintf(temp, "<expr>%s</expr>*<expr>%s</expr>", $1, $3);
-		strcpy($$, temp);
+		// get temp values from stack
+                std::cout << "lw t1, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+                std::cout << "lw t0, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+
+                // multiply
+                std::cout << "mul t0, t0, t1" << std::endl;
+
+                // push stack as temp value
+                std::cout << "addi sp, sp, -4" << std::endl;
+                std::cout << "sw t0, 0(sp)" << std::endl;
 
 	}
 
 	| expr '/' expr {
 
-                sprintf(temp, "<expr>%s</expr>/<expr>%s</expr>", $1, $3);
-		strcpy($$, temp);
+		// get temp values from stack
+                std::cout << "lw t1, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+                std::cout << "lw t0, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+
+                // divide
+                std::cout << "div t0, t0, t1" << std::endl;
+
+                // push stack as temp value
+                std::cout << "addi sp, sp, -4" << std::endl;
+                std::cout << "sw t0, 0(sp)" << std::endl;
 
         }
 
         | expr '%' expr {
 
-                sprintf(temp, "<expr>%s</expr>%%<expr>%s</expr>", $1, $3);
-		strcpy($$, temp);
+		// get temp values from stack
+                std::cout << "lw t1, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+                std::cout << "lw t0, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+
+                // remainder
+                std::cout << "rem t0, t0, t1" << std::endl;
+
+                // push stack as temp value
+                std::cout << "addi sp, sp, -4" << std::endl;
+                std::cout << "sw t0, 0(sp)" << std::endl;
 
         }
 
@@ -386,8 +440,20 @@ expr: expr '+' expr {
 	
 	| ID '=' expr {
 
-                sprintf(temp, "%s=<expr>%s</expr>", $1, $3);
-		strcpy($$, temp);
+		// find entry on stack
+		int i = symbol_find(std::string($1), SYMBOL_TYPE::VAR);
+                int offset = symbol_table[i].offset;
+
+		// get temp value from stack
+		std::cout << "lw t0, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
+
+		// assignment
+		std::cout << "sw t0, " + std::to_string(offset) + "(s0)" << std::endl;
+
+		// push stack as temp value
+		std::cout << "addi sp, sp, -4" << std::endl;
+		std::cout << "sw t0, 0(sp)" << std::endl;
 
 	}
 
@@ -398,15 +464,40 @@ expr: expr '+' expr {
 
 	}
 
-	| func_invoc
+	| func_invoc {
 
-	| ID 
+		// get value from return register
+		std::cout << "addi t0, a0, 0" << std::endl;
+
+		// push stack as temp value
+		std::cout << "addi sp, sp, -4" << std::endl;
+                std::cout << "sw t0, 0(sp)" << std::endl;
+
+	}
+
+	| ID {
+
+		// find entry on stack
+		int i = symbol_find(std::string($1), SYMBOL_TYPE::VAR);
+		int offset = symbol_table[i].offset;
+		std::cout << "lw t0, " + std::to_string(offset) + "(s0)" << std::endl;
+
+		// push stack as temp value
+                std::cout << "addi sp, sp, -4" << std::endl;
+                std::cout << "sw t0, 0(sp)" << std::endl;
+
+	}
 
 	| id_arr_access 
 
 	| literal {
 
+		// put number to temp register
 		std::cout << "li t0, " + std::string($1) << std::endl;
+
+		// push stack as temp value
+                std::cout << "addi sp, sp, -4" << std::endl;
+                std::cout << "sw t0, 0(sp)" << std::endl;
 
 	};
 
@@ -452,7 +543,7 @@ func_invoc: ID '(' argument_list ')' {
 			std::cout << "addi sp, sp, 4" << std::endl;
 
 		}
-		// Do C otherwise, A-B will be done in 'func_def', D will be done in expr
+		// Do C otherwise, A-B will be done in 'func_def', D will be done in stmt_return
 		else {
 
 			// C has been done half here (arguments are passed)
@@ -486,16 +577,21 @@ func_invoc: ID '(' argument_list ')' {
 
 argument_list: argument_list ',' expr {
 
-		// C: get value from t0, since all expr will be evaluated to t0
-                // store to corresponding argument register
+		// C: get value from stack and store to corresponding argument register
+		std::cout << "lw t0, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
 		std::cout << "addi a" + std::to_string(cur_arg) + ", t0, 0" << std::endl;
-                cur_arg += 1;
+
+		cur_arg += 1;
 
 	}
 
 	| expr {
 
+		std::cout << "lw t0, 0(sp)" << std::endl;
+                std::cout << "addi sp, sp, 4" << std::endl;
 		std::cout << "addi a" + std::to_string(cur_arg) + ", t0, 0" << std::endl;
+		
 		cur_arg += 1;
 
 	};
@@ -967,8 +1063,13 @@ stmt_return: RETURN ';' {
 
 	| RETURN expr ';' {
 
-		sprintf(temp, "%s<expr>%s</expr>;", $1, $2);
-                strcpy($$, temp);
+		// get temp value on stack and store to return register
+		std::cout << "lw t0, 0(sp)" << std::endl;
+		std::cout << "addi sp, sp, 4" << std::endl;
+		std::cout << "addi a0, t0, 0" << std::endl;
+
+		//sprintf(temp, "%s<expr>%s</expr>;", $1, $2);
+                //strcpy($$, temp);
 
 	};
 
@@ -1056,6 +1157,8 @@ func_def: var_type ID '(' param_list ')' {
 		std::cout << "lw s0, 0(sp)" << std::endl;
 		std::cout << "addi sp, sp, 4" << std::endl;
 
+		cur_local = 0;
+		
 	}
 
 	| VOID ID '(' param_list ')' {
@@ -1125,6 +1228,8 @@ func_def: var_type ID '(' param_list ')' {
                 std::cout << "lw s0, 0(sp)" << std::endl;
                 std::cout << "addi sp, sp, 4" << std::endl;
 
+		cur_local = 0;
+		
 	}
 
 	| var_type ID '(' ')' {
@@ -1166,6 +1271,8 @@ func_def: var_type ID '(' param_list ')' {
                 std::cout << "lw s0, 0(sp)" << std::endl;
                 std::cout << "addi sp, sp, 4" << std::endl;
 
+		cur_local = 0;
+		
 	}
 
 	| VOID ID '(' ')' {
@@ -1207,6 +1314,8 @@ func_def: var_type ID '(' param_list ')' {
                 std::cout << "lw s0, 0(sp)" << std::endl;
                 std::cout << "addi sp, sp, 4" << std::endl;
 
+		cur_local = 0;
+		
 		if (DEBUG)
 			std::cout << "->func_def" << std::endl;
 	};
@@ -1223,6 +1332,7 @@ int main(void)
 	cur_scope = 0;
 	cur_arg = 0;
 	cur_local = 1;
+	cur_temp = 0;
 	symbol_init();
 
 	yyparse();
